@@ -25,3 +25,11 @@ class Cache:
         if data and fn:
             return fn(data)
         return data
+
+    def get_str(self, data):
+        """convert to a string"""
+        return str(data)
+
+    def get_int(self, data):
+        """convert to an integer"""
+        return int(data)
