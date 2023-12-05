@@ -13,7 +13,7 @@ class Cache:
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data: Union[str, int, bytes, float]) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """store a data in redis using a unique identifier"""
         key: str = str(uuid4())
         self._redis.set(key, data)
