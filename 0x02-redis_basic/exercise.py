@@ -2,7 +2,7 @@
 """A redis exercise module"""
 import redis
 from uuid import uuid4
-from typing import Union
+from typing import Union, Callable
 
 
 class Cache:
@@ -18,3 +18,10 @@ class Cache:
         key: str = str(uuid4())
         self._redis.set(key, data)
         return key
+
+    def get(self, key: str, fn: Callable) -> Union[str, bytes, int, float]:
+        """Get the data from redis"""
+        data = self._redis.get(key)
+        if data and fn:
+            return fn(data)
+        return data
