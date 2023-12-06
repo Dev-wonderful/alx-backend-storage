@@ -6,16 +6,16 @@ from typing import Union, Callable
 from functools import wraps
 
 
-def count_calls(fn: Callable) -> Callable:
+def count_calls(method: Callable) -> Callable:
     """Counts how many times a method is called"""
-    @wraps(fn)
+    @wraps(method)
     def wrapper(self, arg):
         """wrapper func"""
-        key = fn.__qualname__
+        key = method.__qualname__
         if not self._redis.exists(key):
             self._redis.set(key, 0)
         self._redis.incr(key)
-        return fn(self, arg)
+        return method(self, arg)
     return wrapper
 
 
